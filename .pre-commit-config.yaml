@@ -1,0 +1,20 @@
+default_stages: [commit]
+
+default_install_hook_types: [pre-commit]
+
+repos:
+  - repo: local
+    hooks:
+      - id: prettier
+        name: Run Prettier
+        entry: npx prettier --write
+        language: node
+        files: \.(js|jsx|ts|tsx|css|scss|html|json|md|svelte)$
+        types: [file]
+
+      - id: eslint
+        name: Run ESLint
+        entry: npx eslint --fix
+        language: node
+        files: \.(js|jsx|ts|tsx|svelte)$
+        types: [file]
