@@ -1,17 +1,9 @@
-<style>
-  .download-button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    color: var(--background-color);
-    background-color: var(--primary-color);
-    text-decoration: none;
-    cursor: pointer;
-  }
+<iframe src="/resume.pdf" title="Aaron Kim Resume" />
 
-  .download-button:hover {
-    text-decoration: underline;
+<style>
+  iframe {
+    width: 100vw;
+    height: 100vh;
+    border: none;
   }
 </style>
-
-<iframe src="/resume.pdf" title="Aaron Kim Resume" allow="fullscreen" />
-<a class="download-button" href="/resume.pdf" download="Aaron Kim Resume.pdf">Download</a>

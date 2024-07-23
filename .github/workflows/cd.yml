@@ -21,7 +21,7 @@ jobs:
         run: npm run build
       - name: create nojekyll
         run: touch build/.nojekyll
-      - name: Upload Artifacts
+      - name: upload artifacts
         uses: actions/upload-pages-artifact@v3
         with:
           path: 'build/'
