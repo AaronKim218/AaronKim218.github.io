@@ -9,7 +9,7 @@ on:
 
 jobs:
   # removes all but 10 most recent workflow runs
-  remove-old-workflow-runs:
+  delete-old-workflow-runs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repository
@@ -25,5 +25,15 @@ jobs:
               gh run delete $id
             done
           done
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+  delete-cache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+      - name: delete cache
+        run: gh cache delete --all
         env:
           GH_TOKEN: ${{ github.token }}
