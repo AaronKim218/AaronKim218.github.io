@@ -1,0 +1,29 @@
+name: cleanup
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  # removes all but 10 most recent workflow runs
+  remove-old-workflow-runs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+      - name: delete old cd workflow runs
+        run: |
+          workflows=($(gh workflow list --json name | jq -r '.[].name'))
+          for workflow in "${workflows[@]}"; do
+            ids=($(gh run list --json databaseId,workflowName | jq -r '.[] | select(.workflowName == "${workflow}") | .databaseId')); ids=("${ids[@]:10}")
+            echo "Deleting workflow runs for $workflow"
+            for id in "${ids[@]}"; do
+              echo "Deleting workflow run $id"
+              gh run delete $id
+            done
+          done
+        env:
+          GH_TOKEN: ${{ github.token }}
